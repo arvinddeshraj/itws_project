@@ -1,0 +1,131 @@
+{% load static %}
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Water And Plant Management</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static "css/materialize.css" %}"type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static "css/style1.css" %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="{% static "css/materialize.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/materialize.min.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/style1.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "js/init.js" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/materialize.js" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/materialize.min.css" %}" />
+</head>
+<body>
+  <nav class="navbar-fixed teal "  role="navigation">
+    <div class="nav-wrapper container" >
+      <a id="logo-container" href="" class="brand-logo">Plant Monitoring System</a>
+      <ul class="right hide-on-med-and-down" style="color:black">
+        <li><a href="{% url 'UserLogin:login' %}">Log-In</a></li>
+        <li><a href="{% url 'UserLogin:register' %}"">Sign-Up</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="{% url 'UserLogin:login' %}">Log-In</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center teal-text text-darken-2">Plant Managment System</h1>
+        <div class="row center">
+          <h3 class="header col s12 dark">Group 5</h3>
+        </div>
+        <div class="row center">
+          <a href="{% url 'UserLogin:register' %}" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Planting-Sign Up</a>
+        </div>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img src="{% static "images/background1.jpg" %}" class="z-depth-2"></div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Responsive User Interface</h5>
+
+            <p class="light">
+            A fully responsive user interface with interactive graphs for multi-platform usability and a vibrant experience.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">User Oriented Database</h5>
+
+            <p class="light">Your experience is personalised, and your settings and plants will be completely secure, and all setting tailored for you. </p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Robust Hardware Design</h5>
+
+            <p class="light">Every single component of hardware used is precisely integrated with the software, so both work fluidly to give you the best experience.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">"A man doesn't plant a tree for himself.He plants it for posterity."<br>-Alexander Smith </h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="{% static "images/background2.jpg" %}" ></div>
+  </div>
+  <div class="container">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4>Contact Us</h4>
+          <p class="left-align light"><br>Arvind Deshraj: <a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=arvind.d16@iiits.in" target="_blank">arvind.d16@iiits.in</a><br>Srijan Reddy: <a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=srijanreddy.v16@iiits.in" target="_blank">srijanreddy.v16@iiits.in</a><br>Rishav Varma: <a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=rishavchandra.v16@iiits.in" target="_blank">rishavchandra.v16@iiits.in</a><br>Sahaj Agarwal: <a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=sahaj.a16@iiits.in" target="_blank">sahaj.a16@iiits.in</a><br>Uday Sawhney:<a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=udayraj.s16@iiits.in" target="_blank"> udayraj.s16@iiits.in</a><br>Rutvik Vijjali:<a class="brown-text text-lighten-3" href="https://mail.google.com/mail/?view=cm&fs=1&to=rutvikreddy.v16@iiits.in" target="_blank"> rutvikreddy.v16@iiits.in</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+          <h5 class="white-text">Project Details</h5>
+          <p class="grey-text text-lighten-4">This project has been made under the guidance of Prof. Nagesh Kolagani.</p>
+
+
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Copyrights of <a class="brown-text text-lighten-3" href="http://climit.16mb.com">Climit</a>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static "js/materialize.js" %}"></script>
+  <script src="{% static "js/init.js" %}"></script>
+
+  </body>
+</html>

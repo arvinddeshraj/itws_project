@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- These meta tags come first. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Add Plant</title>
+
+    <!-- Include the CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "assets/css/toolkit-inverse.css" %}" rel="stylesheet">
+      <link href="{% static "assets/css/application.css" %}" rel="stylesheet">
+      <link href="{% static "dist/toolkit.min.css" %}" rel="stylesheet">
+      <style>
+      .bord{
+        border-color: blue;
+        border-width: 2px;
+      }
+    </style>
+
+  </head>
+<body>
+    <nav class="iconav">
+    <a class="iconav-brand" href="{% url 'UserLogin:home' %}">
+      <span class="icon icon-leaf iconav-brand-icon"></span>
+    </a>
+    <div class="iconav-slider">
+      <ul class="nav nav-pills iconav-nav flex-md-column">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:index' %}" title="Home" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-home"></span>
+            <small class="iconav-nav-label hidden-md-up">Home</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'sensors:addPlants' %}" title="Add Plants" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flower"></span>
+            <small class="iconav-nav-label hidden-md-up"> Add Plants</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:macro' %}" title="Macrosensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-drop"></span>
+            <small class="iconav-nav-label hidden-md-up">Macrosensors</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:micro' %}" title="Microsensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-area-graph"></span>
+            <small class="iconav-nav-label hidden-md-up">Microsensors</small>
+          </a>
+        </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:userprofile' %}" title="Signed in as {{ user.username}}" data-toggle="tooltip" data-placement="right" data-container="body">
+             <span class="icon icon-user"></span>
+            <small class="iconav-nav-label hidden-md-up">@mdo</small>
+          </a>
+          </li>
+            <li class="nav-item">
+          <a class="nav-link" href="{% url 'UserLogin:home' %}" title="Log Out" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-log-out"></span>
+            <small class="iconav-nav-label hidden-md-up">Log Out</small>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <center>
+    <h1 class="display-3">Welcome To Plants Page <br>{{ user.username }}</h1>
+        <br><br>
+
+
+
+<h2> You have the following plants</h2>
+<br> <br>
+         <div class="container">
+        <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Plant Name</th>
+                          <th>Latitude</th>
+                          <th>Longitude</th>
+                        </tr>
+                      </thead>
+                    
+                      <tbody>
+                        <tr  {% for plant in plants %}>
+                          <td>
+                            {{ plant.name }}
+                          </td>
+                          <td>
+                            {{ plant.Latitude }}
+                          </td>
+                          <td>
+                            {{ plant.Longitude }}
+                          </td>
+                        </tr {% endfor %}>
+                      </tbody>
+                    </table>
+                </div>
+
+
+
+
+        
+    <br><br> <br><br>
+
+        <div class="container">
+     <div class="row">
+      <div class="col s5">
+    <button type="button" class="btn btn-lg btn-outline-danger" data-toggle="collapse" data-target="#wowo">Delete Plant</button>
+    <div id="wowo" class="collapse">
+    <br><br>
+         <h3>Enter the name of the plant you want to delete</h3>
+         <div class="col-sm-6"></div>
+         <div class="col-sm-6">
+        <form action="{% url 'sensors:userprofile' %}" method="post">
+        <input type="email" class="form-control" required autocomplete="off" placeholder="Name" name="name" />  <br><br>
+        <button type="submit" class="btn btn-outline-success">Delete</button>
+        </form>
+      </div>
+      </div>
+      </div>
+
+    <br><br> <br><br>
+
+        <div class="col s5">
+     <button type="button" class="btn btn-lg btn-outline-primary" data-toggle="collapse" data-target="#wow">Update Plant</button>
+     <div id="wow" class="collapse">
+     <br><br>
+        <h3>Update Plant Details</h3>
+        <br><br>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+            <form action="{% url 'sensors:userprofile' %}" method="post">
+                <input type="email" class="form-control" required autocomplete="off" placeholder="Name" name="name1" />  <br><br>
+                <input type="email" class="form-control" required autocomplete="off" placeholder="Latitude" name="lat1" />  <br><br>
+                <input type="email" class="form-control" required autocomplete="off" placeholder="Longitude" name="long1" /><br><br>
+                <button type="submit" class="btn btn-outline-success">Update</button>
+            </form>
+          </div>
+            </div>
+            </div>
+            </div>
+            </div>
+       <div class="container">
+    </center>
+</body>
+</html>

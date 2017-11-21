@@ -1,0 +1,245 @@
+{% load static %}
+<html>
+<head>
+
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Micro Sensors</title>
+
+    <!-- Include the CSS -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "assets/css/toolkit-inverse.css" %}" rel="stylesheet">
+      <link href="{% static "assets/css/application.css" %}" rel="stylesheet">
+      <link href="{% static "dist/toolkit.min.css" %}" rel="stylesheet">
+       <style>
+      #map {
+        height: 100%;
+        width:100%;
+      }
+      .bord{
+        border-color: blue;
+        border-width: 2px;
+      }
+      #shape{
+      width:200px;
+      height:200px;
+      border-radius:20px;
+      border-width:20px;
+      border-color:black;
+      background-color:#1bc98e;
+      }
+       .hape{
+      width:20px;
+      height:20px;
+      border-radius:2px;
+      border-width:10px;
+      border-color:black;
+      background-color:red;
+      }
+    </style>
+
+
+  </head>
+  <body>
+   <nav class="iconav">
+    <a class="iconav-brand" href="{% url 'UserLogin:home' %}">
+      <span class="icon icon-leaf iconav-brand-icon"></span>
+    </a>
+    <div class="iconav-slider">
+      <ul class="nav nav-pills iconav-nav flex-md-column">
+        <li class="nav-item">
+          <a class="nav-link " href="{% url 'sensors:index' %}" title="Home" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-home"></span>
+            <small class="iconav-nav-label hidden-md-up">Home</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:addPlants' %}" title="Add Plants" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flower"></span>
+            <small class="iconav-nav-label hidden-md-up"> Add Plants</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:macro' %}" title="Macrosensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-drop"></span>
+            <small class="iconav-nav-label hidden-md-up">Macrosensors</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  active" href="{% url 'sensors:micro' %}" title="Microsensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-area-graph"></span>
+            <small class="iconav-nav-label hidden-md-up">Microsensors</small>
+          </a>
+        </li>
+<!--         <li class="nav-item">
+          <a class="nav-link" href="#" title="Docs" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-list"></span>
+            <small class="iconav-nav-label hidden-md-up">Docs</small>
+          </a>
+        </li> -->
+<!--         <li class="nav-item">
+          <a class="nav-link" href="#" title="Light UI" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flash"></span>
+            <small class="iconav-nav-label hidden-md-up">Light UI</small>
+          </a>
+        </li>
+  -->       <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:userprofile' %}" title="Signed in as {{ user.username}}" data-toggle="tooltip" data-placement="right" data-container="body">
+             <span class="icon icon-user"></span>
+            <small class="iconav-nav-label hidden-md-up">@mdo</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'UserLogin:home' %}" title="Log Out" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-log-out"></span>
+            <small class="iconav-nav-label hidden-md-up">Log Out</small>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="dashhead">
+      <div class="dashhead-titles">
+        <h6 class="dashhead-subtitle">Water Management System</h6>
+        <h3 class="dashhead-title">Micro Sensor Readings</h3>
+      </div>
+
+      <div class="dashhead-toolbar">
+        <div style="text-align:right" class="input-with-icon dashhead-toolbar-item">
+          <h3>Welcome</h3>
+        </div>
+        <span class="dashhead-toolbar-divider hidden-sm-down"></span>
+        <div class="btn-group dashhead-toolbar-item btn-group-thirds">
+          <button type="button" class="btn  btn-outline-primary">User :</button>
+          <button type="button" class="btn  btn-outline-primary active">{{ user.username }}</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="dashhead"> <div class=" dashhead-toolbar">
+      <div class="">
+        <span class="">
+        <select id="selectplant" class="custom-select lg">
+  <option selected value="0">Plants</option>
+            {% for values in microsensors.values  %}
+  <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+{% endfor %}
+        </select>
+          <button type="button" onclick="plant(1)"  class="btn btn-lg btn-outline-success">Select</button></span>
+      </div>
+    </div></div>
+<br><br><br>
+{% for values in microsensors.values %}
+      <div id="g{{ forloop.counter }}">
+          <div class="hr-divider my-4">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a href="#sales" class="nav-link active" role="tab" data-toggle="tab" aria-controls="sales">Plant {{ forloop.counter }}</a>
+    </li>
+  </ul>
+</div>
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas id="{{ forloop.counter }}" width="400" height="200"></canvas>
+    </div>
+  </div>
+</div></div>
+{% endfor %}
+<div class="list-group mb-3 bord">
+  <h6 class="list-group-header">
+    Is Your Plant Alive!?
+  </h6>
+   <a class="list-group-item list-group-item-action justify-content-between" href="#">
+           <span>The plant we are tracking right now</span>
+           <span>Dying:<div class="hape" style="background-color:red"></div><br>Healthy<div class="hape" style="background-color:#1bc98e"></div></span>
+           <span><center><div id="shape"></div></center></span>
+      <span class="text-muted">November 2, 2017</span>
+
+    </a>
+    </div>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+      <script src="{% static "assets/js/chart.js" %}"></script>
+    <script src="{% static "assets/js/tablesorter.min.js" %}"></script>
+    <script src="{% static "assets/js/toolkit.js" %}"></script>
+    <script src="{% static "assets/js/application.js" %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+
+    <script type="text/javascript">
+  setTimeout(function(){
+    location = ''
+  },100000)
+</script>
+<script >
+function plant(f){
+   var k=1;
+   if(f==1)
+   k=$('#selectplant').val();
+   var l,p;
+   l=0;
+   p=1;
+   {% for values in microsensors.values %}l=l+1;{% endfor %}
+   while(p<=l){
+   if(p!=k) {$("#g"+p).css("display","none");}
+    else {$("#g"+p).css("display","block");}
+    p=p+1;
+    }
+
+}
+plant(0);
+{% for values in microsensors.values %}
+var soilmoisture=[];
+var label=[];
+var i=0;
+var count =0 ;
+var charts = [];
+i=0;
+    {% for value in values %}
+        {% if value.SoilMoisture == None %}
+            soilmoisture[i]=0;
+        {% else %}
+        soilmoisture[i]= +{{ value.SoilMoisture }};
+        {% endif %}
+        label[i]="";
+        i=i+1;
+    {% endfor %}
+
+  var ctx = document.getElementById('{{ forloop.counter }}').getContext('2d');
+ charts[count] = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: label,
+        datasets: [{
+            label: "SoilMoisture",
+
+            borderColor: 'rgb(255, 99, 132)',
+            data: soilmoisture,
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+count=count+1;
+{% endfor %}
+
+</script>
+</body>
+</html>

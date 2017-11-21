@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- These meta tags come first. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Home Page</title>
+
+    <!-- Include the CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "assets/css/toolkit-inverse.css" %}" rel="stylesheet">
+      <link href="{% static "assets/css/application.css" %}" rel="stylesheet">
+      <link href="{% static "dist/toolkit.min.css" %}" rel="stylesheet">
+      <style>
+      #map {
+        height: 100%;
+        width:100%;
+      }
+      .bord{
+        border-color: blue;
+        border-width: 2px;
+      }
+      #shape{
+      width:200px;
+      height:200px;
+      border-radius:20px;
+      border-width:20px;
+      border-color:black;
+      background-color:red;
+      }
+       .hape{
+      width:20px;
+      height:20px;
+      border-radius:2px;
+      border-width:10px;
+      border-color:black;
+      background-color:red;
+      }
+    </style>
+
+  </head>
+  <body>
+   <nav class="iconav">
+    <a class="iconav-brand" href="{% url 'UserLogin:home' %}">
+      <span class="icon icon-leaf iconav-brand-icon"></span>
+    </a>
+    <div class="iconav-slider">
+      <ul class="nav nav-pills iconav-nav flex-md-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="" title="Home" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-home"></span>
+            <small class="iconav-nav-label hidden-md-up">Home</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:addPlants' %}" title="Add Plants" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flower"></span>
+            <small class="iconav-nav-label hidden-md-up"> Add Plants</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:macro' %}" title="Macrosensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-drop"></span>
+            <small class="iconav-nav-label hidden-md-up">Macrosensors</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:micro' %}" title="Microsensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-area-graph"></span>
+            <small class="iconav-nav-label hidden-md-up">Microsensors</small>
+          </a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:userprofile' %}" title="Signed in as {{ user.username}}" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-user"></span>
+            <small class="iconav-nav-label hidden-md-up">@mdo</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'UserLogin:home' %}" title="Log Out" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-log-out"></span>
+            <small class="iconav-nav-label hidden-md-up">Log Out</small>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="dashhead">
+      <div class="dashhead-titles">
+        <h6 class="dashhead-subtitle">Water Management System</h6>
+        <h3 class="dashhead-title">Home</h3>
+      </div>
+
+      <div style="align:left"  class="dashhead-toolbar">
+        <div class="input-with-icon dashhead-toolbar-item">
+          <h3>Welcome</h3>
+        </div>
+        <span class="dashhead-toolbar-divider hidden-sm-down"></span>
+        <div class="btn-group dashhead-toolbar-item btn-group-thirds">
+                    <button type="button" class="btn btn-outline-primary">User :</button>
+          <button type="button" class="btn  btn-outline-primary active">{{ user.username }}</button>
+        </div>
+      </div>
+    </div>
+    <br>
+
+        <br>
+    <br>
+    <div class="dashhead"></div>
+    <div class="flextable">
+  <div class="flextable-item flextable-primary">
+    <input type="text" class="form-control" placeholder="Plant Location">
+  </div>
+  <div class="flextable-item">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary">
+        <span class="icon icon-pencil"></span>
+      </button>
+      <button type="button" class="btn btn-outline-primary">
+        <span class="icon icon-erase"></span>
+      </button>
+    </div>
+  </div><br><br>
+
+  <br>
+  <div id="map" style="width:100%;height:400px;"></div>
+      <br/><br/>
+<br>  <div class="list-group mb-3 bord">
+  <h6 class="list-group-header">
+    Announcements
+  </h6>
+
+    <a class="list-group-item list-group-item-action justify-content-between" href="#">
+      <span>Hello! The alpha version of our project is now up and running. We are very excited to have you as one of our alpha testers. We hope to impress you with the new features and the updated UI. We hope the product works as well as we intended.Looking forward to your feedback!</span>
+      <span class="text-muted">10 Oct 2017</span>
+    </a>
+
+</div>
+</div>
+</div>
+    <!-- Include jQuery (required) and the JS -->
+   <script>
+
+        var LATITUDE=13.557158;
+        var LONGITUDE=80.025031;
+      function initMap() {
+        var myLatLng = {lat: LATITUDE, lng: LONGITUDE};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: myLatLng,
+          gestureHandling: 'cooperative'
+        });
+
+        var marker
+        {% for plant in plants %}
+
+           marker = new google.maps.Marker({
+            position: new google.maps.LatLng(parseFloat('{{plant.Latitude}}'),parseFloat('{{plant.Longitude}}')),
+            map:map
+          });
+
+        {% endfor %}
+        marker.addListener('click', toggleBounce);
+      }
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKciRbMXkD9mcYb_0_CHKAWjENhO44a8k&&callback=initMap">
+      //google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/tether.min.js" %}"></script>
+       <script src="{% static "assets/js/chart.js" %}"></script>
+    <script src="{% static "assets/js/tablesorter.min.js" %}"></script>
+    <script src="{% static "assets/js/toolkit.js" %}"></script>
+    <script src="{% static "assets/js/application.js" %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+  </body>
+</html>

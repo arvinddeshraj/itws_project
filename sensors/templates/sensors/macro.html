@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- These meta tags come first. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Macro Sensors</title>
+
+    <!-- Include the CSS -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" rel="stylesheet">
+
+      <link href="{% static "assets/css/toolkit-inverse.css" %}" rel="stylesheet">
+      <link href="{% static "assets/css/application.css" %}" rel="stylesheet">
+      <link href="{% static "dist/toolkit.min.css" %}" rel="stylesheet">
+
+  </head>
+  <body>
+   <nav class="iconav">
+    <a class="iconav-brand" href="{% url 'UserLogin:home' %}">
+      <span class="icon icon-leaf iconav-brand-icon"></span>
+    </a>
+    <div class="iconav-slider">
+      <ul class="nav nav-pills iconav-nav flex-md-column">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:index' %}" title="Home" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-home"></span>
+            <small class="iconav-nav-label hidden-md-up">Home</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:addPlants' %}" title="Add Plants" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flower"></span>
+            <small class="iconav-nav-label hidden-md-up"> Add Plants</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  active" href="{% url 'sensors:macro' %}" title="Macrosensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-drop"></span>
+            <small class="iconav-nav-label hidden-md-up">Macrosensors</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:micro' %}" title="Microsensors" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-area-graph"></span>
+            <small class="iconav-nav-label hidden-md-up">Microsensors</small>
+          </a>
+        </li>
+<!--         <li class="nav-item">
+          <a class="nav-link" href="#" title="Docs" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-list"></span>
+            <small class="iconav-nav-label hidden-md-up">Docs</small>
+          </a>
+        </li> -->
+<!--         <li class="nav-item">
+          <a class="nav-link" href="#" title="Light UI" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-flash"></span>
+            <small class="iconav-nav-label hidden-md-up">Light UI</small>
+          </a>
+        </li>
+  -->       <li class="nav-item">
+          <a class="nav-link" href="{% url 'sensors:userprofile' %}" title="Signed in as {{ user.username}}" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-user"></span>
+            <small class="iconav-nav-label hidden-md-up">@mdo</small>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'UserLogin:home' %}" title="Log Out" data-toggle="tooltip" data-placement="right" data-container="body">
+            <span class="icon icon-log-out"></span>
+            <small class="iconav-nav-label hidden-md-up">Log Out</small>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="dashhead">
+      <div class="dashhead-titles">
+        <h6 class="dashhead-subtitle">Water Management System</h6>
+        <h3 class="dashhead-title">Macro Sensors Data</h3>
+      </div>
+
+      <div class="dashhead-toolbar">
+        <div class="input-with-icon dashhead-toolbar-item">
+          <h3>Welcome</h3>
+        </div>
+        <span class="dashhead-toolbar-divider hidden-sm-down"></span>
+        <div class="btn-group dashhead-toolbar-item btn-group-thirds">
+          <button type="button" class="btn  btn-outline-primary">User :</button>
+          <button type="button" class="btn btn-outline-primary active">{{ user.username }}</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="dashhead"> <div class="btn-toolbar dashhead-toolbar">
+      <div class="btn-toolbar-item input-with-icon">
+
+        <span class="icon icon-calendar"></span>
+      </div>
+    </div></div>
+    <div class="hr-divider my-4">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a href="#sales" class="nav-link active" role="tab" data-toggle="tab" aria-controls="sales">Temprature</a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+</div>
+      <div class="hr-divider my-4">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a href="#sales" class="nav-link active" role="tab" data-toggle="tab" aria-controls="sales">Humidity</a>
+    </li>
+  </ul>
+</div>
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas id="humidity" width="300" height="200" data-dark="true">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+<div class="hr-divider my-4">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a href="#sales" class="nav-link active" role="tab" data-toggle="tab" aria-controls="sales">WaterLevel</a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas id="water" width="400" height="200"></canvas>
+    </div>
+  </div>
+</div>
+      <div class="hr-divider my-4">
+  <ul class="nav nav-pills hr-divider-content hr-divider-nav" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a href="#sales" class="nav-link active" role="tab" data-toggle="tab" aria-controls="sales">Rain</a>
+    </li>
+  </ul>
+</div>
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sales">
+    <div class="ex-line-graphs">
+       <canvas id="rain" width="300" height="200" data-dark="true">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+</div></div>
+   <!-- Include jQuery (required) and the JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/tether.min.js" %}"></script>
+       <script src="{% static "assets/js/chart.js" %}"></script>
+    <script src="{% static "assets/js/tablesorter.min.js" %}"></script>
+    <script src="{% static "assets/js/toolkit.js" %}"></script>
+    <script src="{% static "assets/js/application.js" %}"></script>
+    <script>
+      // execute/clear BS loaders for docs
+      $(function(){while(window.BS&&window.BS.loader&&window.BS.loader.length){(window.BS.loader.pop())()}})
+    </script>
+    <script type="text/javascript">
+  setTimeout(function(){
+    location = ''
+  },100000)
+</script>
+<script>
+var temperature=[];
+var humidity=[];
+var label=[];
+var i=0;
+{% for sensor in macrosensors %}
+      {% if sensor.Temperature == None %}
+        temperature[i]=0;
+      {% else %}
+      temperature[i]={{ sensor.Temperature }};
+      {% endif %}
+      {% if sensor.Humidity == None %}
+      humidity[i]=0;
+    {% else %}
+    humidity[i]= +{{ sensor.Humidity }};
+    {% endif %}
+    label[i]="";
+      i=i+1;
+    {% endfor %}
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: label,
+        datasets: [{
+            label: "Temperature",
+
+            borderColor: '#e23f36',
+            data: temperature,
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});var cta = document.getElementById('humidity').getContext('2d');
+var chart = new Chart(cta, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: label,
+        datasets: [{
+            label: "Humidity",
+
+            borderColor: 'rgb(255, 172, 30)',
+            data: humidity
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});</script>
+<script>
+var temperature=[];
+var humidity=[];
+var label=[];
+var i=0;
+{% for sensor in macrosensors %}
+      {% if sensor.WaterLevel == None %}
+        temperature[i]=0;
+      {% else %}
+      temperature[i]={{ sensor.WaterLevel }};
+      {% endif %}
+      {% if sensor.Rain == None %}
+      humidity[i]=0;
+    {% else %}
+    humidity[i]= +{{ sensor.Rain }};
+    {% endif %}
+    label[i]="";
+      i=i+1;
+{% endfor %}
+var ctx = document.getElementById('water').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: label,
+        datasets: [{
+            label: "Water Level",
+
+            borderColor: '#1997c6',
+            data: temperature,
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});var cta = document.getElementById('rain').getContext('2d');
+var chart = new Chart(cta, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: label,
+        datasets: [{
+            label: "Rain",
+
+            borderColor: '#1997c6',
+            data: humidity
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});</script>
+  </body>
+</html>
